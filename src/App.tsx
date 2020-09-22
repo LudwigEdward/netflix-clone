@@ -10,7 +10,7 @@ type ResponseMovieListsProps = {
 }
 
 type ResponseInfoProps = {
-  backdrop_path:string;
+  backdrop_path:string | undefined;
 }
 
 interface ResponseMovieLists {
@@ -19,14 +19,14 @@ interface ResponseMovieLists {
   items:ResponseMovieListsProps;
 }
 interface ResponseInfo {
-  slug:string;
-  title:string;
-  items:ResponseInfoProps;
+  slug:string | undefined;
+  title:string | undefined;
+  items:ResponseInfoProps | undefined;
 }
 
 export const App: React.FC = () =>{
   const [movieList,setMovieList] = useState<ResponseMovieLists[]>();
-  const [featuredData,setFeaturedData] = useState<ResponseInfo[]>([]);
+  const [featuredData,setFeaturedData] = useState<ResponseInfo[]>();
 
   useEffect(()=>{
     const loadAll = async () =>{
@@ -37,6 +37,7 @@ export const App: React.FC = () =>{
       const movieChosen = original[0].items.results[Math.floor(Math.random() * (original[0].items.results.length - 1))]
       const responseInfo = await Tmdb.getMovieInfo(movieChosen.id,"tv");
       setFeaturedData(responseInfo);
+      console.log(responseInfo)
 
     }
     loadAll();
@@ -45,7 +46,7 @@ export const App: React.FC = () =>{
 
   return (
     <div className="page">
-      {featuredData && <FeaturedMovie item={featuredData}/>}
+      {featuredData!== undefined && <FeaturedMovie item={featuredData}/> }
       <div className="lists">
         {movieList?.map((item,key) =>(
           <MovieRow key={key} title={item.title} items={item.items}></MovieRow>

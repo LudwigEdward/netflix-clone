@@ -26,3 +26,14 @@ export const FeaturedFadeHorizontal = styled.div`
  height:inherit;
  background:linear-gradient(to right, rgba(17, 17, 17,0.95) 30%, transparent 70%);
 `;
+
+
+export const FeaturedSeasons = styled.div``;
+  export const FeaturedInfo = styled.div``;
+  export const FeaturedPoints = styled.div``;
+  export const FeaturedName = styled.div``;
+  export const FeaturedYear = styled.div``;
+
+  export const FeaturedDescription = styled.div``;
+  export const FeaturedButtons = styled.div``;
+  export const FeaturedGenres = styled.div``;
