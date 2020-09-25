@@ -21,6 +21,7 @@ interface FeatureMovieProps{
 
 const FeaturedMovie: React.FC<FeatureMovieProps> = ({item}) => {
   const MovieDate =  new Date(item.first_air_date);
+  const description = item.overview.split(".");
   return (
     <Container>
       <Featured backdrop_path={item.backdrop_path}>
@@ -32,7 +33,7 @@ const FeaturedMovie: React.FC<FeatureMovieProps> = ({item}) => {
   <FeaturedYear>{MovieDate.getFullYear()}</FeaturedYear>
                 <FeaturedSeasons>{item.number_of_seasons} temporada{item.number_of_seasons > 1 ? "s":  ""}</FeaturedSeasons>
             </FeaturedInfo>
-            <FeaturedDescription>{item.overview}</FeaturedDescription>
+             <FeaturedDescription>{description[0]}{item.overview ? ".": ""}</FeaturedDescription>
               <FeaturedButtons>
                   <a href={`/watch/${item.id}`} className="featured-watchbutton">▶ Assistir</a>
                   <a href={`/list/add/${item.id}`} className="featured-mylistbutton">+ Minha Lista</a>
