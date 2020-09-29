@@ -10,10 +10,19 @@ export const MovieRowContainer = styled.div`
   h2{
     margin:0px 0px 0px 30px;
   }
+
+  .movie-row-arrows{
+    opacity:0;
+  }
 `;
 export const MovieRowListArea = styled.div`
   overflox-x:hidden;
   padding-left:30px;
+
+  .movie-row-list:hover  .movie-row-arrows{
+    opacity:1;
+    background:red;
+ }
 
 `;
 export const MovieRowList = styled.div`
@@ -48,5 +57,26 @@ export const MovieRowTab = styled.div`
   justify-content:flex-end;
   margin-right:7px;
 `
+export const MovieRowLeft = styled.div`
+  left:0;
+`;
+
+export const MovieRowRight = styled.div`
+  right:0;
+`;
+
+export const MovieRowArrows = styled.div`
+  position:absolute;
+  width:40px;
+  height:225px;
+  background-color:rgba(0,0,0,0.6);
+ z-index:998;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  cursor:pointer;
+`;
+
 
 

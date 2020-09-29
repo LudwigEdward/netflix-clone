@@ -1,6 +1,19 @@
 import React from 'react';
 
-import { MovieRowContainer,MovieRowListArea,MovieRowList,MovieRowItem,MovieRowTitle,MovieRowTab,MovieRowTabContainer } from './styles';
+import {
+  MovieRowContainer,
+  MovieRowListArea,
+  MovieRowList,
+  MovieRowItem,
+  MovieRowTitle,
+  MovieRowTab,
+  MovieRowTabContainer,
+  MovieRowLeft,
+  MovieRowRight,
+  MovieRowArrows
+ } from './styles';
+ import NavigateBefore from '@material-ui/icons/NavigateBefore'
+ import NavigateNext from '@material-ui/icons/NavigateNext'
 
 type MovieRowProps = {
   title:string;
@@ -27,8 +40,16 @@ const MovieRow: React.FC<MovieRow> = ({title,items}:MovieRow) => {
         }
       </MovieRowTabContainer>
       </MovieRowTitle>
-      <MovieRowListArea>
-        <MovieRowList>
+      <MovieRowArrows className="movie-row-arrows">
+      <MovieRowLeft className="movie-row-left">
+        <NavigateBefore style={{fontSize:50}}/>
+      </MovieRowLeft>
+      <MovieRowRight  className="movie-row-right">
+        <NavigateNext style={{fontSize:50}}/>
+      </MovieRowRight>
+      </MovieRowArrows>
+      <MovieRowListArea >
+        <MovieRowList className="movie-row-list">
         {items.results.length > 0 && items.results.map((item:MovieRowProps,key:string)=>(
           <MovieRowItem key={key}>
           <img alt="movie-poster" src={`https://image.tmdb.org/t/p/w300${item.poster_path}`} key={key}/>
