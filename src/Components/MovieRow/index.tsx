@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {
   MovieRowContainer,
@@ -10,7 +10,8 @@ import {
   MovieRowTabContainer,
   MovieRowLeft,
   MovieRowRight,
-  MovieRowArrows
+  MovieRowArrows,
+  Container
  } from './styles';
  import NavigateBefore from '@material-ui/icons/NavigateBefore'
  import NavigateNext from '@material-ui/icons/NavigateNext'
@@ -27,10 +28,24 @@ interface MovieRow{
 
 const MovieRow: React.FC<MovieRow> = ({title,items}:MovieRow) => {
   const totalTabs = (Math.round(items.results.length / 12));
-  const currentTab = 1;
+  const [currentTab,setCurrentTab] = useState(1);
+  const [scrollX,setScrollX] = useState(0);
+
+  const handleLeftArrow = () =>{
+    if(scrollX < 0){
+      setScrollX(scrollX + 1800);
+      setCurrentTab(currentTab + 1)
+    }
+  }
+
+  const handleRightArrow = () =>{
+    setScrollX(scrollX - 1800);
+    setCurrentTab(currentTab - 1)
+  }
 
   return (
-    <MovieRowContainer>
+    <Container>
+    <MovieRowContainer className="MovieRow">
       <MovieRowTitle>
       <h2>{title}</h2>
       <MovieRowTabContainer>
@@ -41,15 +56,17 @@ const MovieRow: React.FC<MovieRow> = ({title,items}:MovieRow) => {
       </MovieRowTabContainer>
       </MovieRowTitle>
       <MovieRowArrows className="movie-row-arrows">
-      <MovieRowLeft className="movie-row-left">
+      <MovieRowLeft className="movie-row-left" onClick={handleLeftArrow}>
         <NavigateBefore style={{fontSize:50}}/>
       </MovieRowLeft>
-      <MovieRowRight  className="movie-row-right">
+      <MovieRowRight  className="movie-row-right" onClick={handleRightArrow}>
         <NavigateNext style={{fontSize:50}}/>
       </MovieRowRight>
       </MovieRowArrows>
       <MovieRowListArea >
-        <MovieRowList className="movie-row-list">
+        <MovieRowList className="movie-row-list" style={{
+          marginLeft:scrollX,transition:"all ease 0.4s"
+        }}>
         {items.results.length > 0 && items.results.map((item:MovieRowProps,key:string)=>(
           <MovieRowItem key={key}>
           <img alt="movie-poster" src={`https://image.tmdb.org/t/p/w300${item.poster_path}`} key={key}/>
@@ -59,6 +76,7 @@ const MovieRow: React.FC<MovieRow> = ({title,items}:MovieRow) => {
         </MovieRowList>
       </MovieRowListArea>
     </MovieRowContainer>
+    </Container>
   );
 };
 

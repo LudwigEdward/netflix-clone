@@ -46,7 +46,7 @@ export const App: React.FC = () =>{
   },[])
   useEffect(()=>{
     const scrollListener = () =>{
-      if(window.scrollY > 750){
+      if(window.scrollY > 150){
         setBlackHeader(true)
       }else{
         setBlackHeader(false);
