@@ -132,7 +132,7 @@ const MovieRow: React.FC<MovieRow> = ({title,items}:MovieRow) => {
         <div>
            <div className="video-player"></div>
           <iframe title="Video Player" data-type="text/html"
-          src={`http://www.youtube.com/embed/${currentItem.id}?autoplay=1&mute=1&rel=0&transparent=0`}
+          src={`https://www.youtube.com/embed/${currentItem.id}?autoplay=1&mute=1&rel=0&transparent=0`}
           />
         </div>
         <div className="title-container">
