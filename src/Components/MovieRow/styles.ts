@@ -219,13 +219,12 @@ export const Modal = styled.div`
 }
   .dates-container{
     position:absolute;
-    transform:scale(1.03);
     top:95vh;
     left:10px;
     width: 500px;
     display:flex;
     justify-content: space-between;
-    padding:0 15px;
+    padding:0 17px;
     .relevant{
       color:#1bb35a;
       font-size:16.5px;
