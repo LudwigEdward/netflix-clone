@@ -12,7 +12,7 @@ export default {
       {
         slug:"originals",
         title:"Originais do Netflix",
-        items:await basicFetch("/discover/tv?with_network=213")
+        items:await basicFetch(`/discover/tv?with_network=213?`)
       },
       {
         slug:"trending",
@@ -60,5 +60,8 @@ export default {
             default:
               break;
       }
+  },
+  getMovieTrailer :async (movieId:number) =>{
+    return await basicFetch(`/movie/${movieId}/videos?append_to_response=videos`);
   }
 }

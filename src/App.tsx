@@ -1,4 +1,6 @@
 import React, { useEffect,useState } from 'react';
+import Lottie from 'react-lottie';
+import  animationData from './loading-animation.json'
 import './App.css'
 import  Tmdb from './Tmdb'
 import MovieRow from './Components/MovieRow'
@@ -7,11 +9,13 @@ import Header from './Components/Header'
 
 
 type ResponseMovieListsProps = {
-  poster_path:string
+  poster_path?:string
+  results:Array<Record<string,any>>;
 }
 
 type ResponseInfoProps = {
   backdrop_path:string | undefined;
+
 }
 
 interface ResponseMovieLists {
@@ -29,21 +33,36 @@ export const App: React.FC = () =>{
   const [movieList,setMovieList] = useState<ResponseMovieLists[]>();
   const [featuredData,setFeaturedData] = useState<ResponseInfo[]>();
   const [blackHeader,setBlackHeader] = useState(false);
+  const [animationState,setAnimationState] = useState({
+    isStopped:false,
+    isPaused:false
+  });
+  const lootieDefaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  };
+
+
+  const loadAll = async () =>{
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    const responseLists = await Tmdb.getHomeList()
+    setMovieList(responseLists);
+
+    const original = responseLists.filter(i => i.slug === "originals");
+    const movieChosen = original[0].items.results[Math.floor(Math.random() * (original[0].items.results.length - 1))]
+    const responseInfo = await Tmdb.getMovieInfo(movieChosen.id,"tv");
+    setFeaturedData(responseInfo);
+    setAnimationState({isPaused:true,isStopped:true});
+  }
 
   useEffect(()=>{
-    const loadAll = async () =>{
-      const responseLists = await Tmdb.getHomeList()
-      setMovieList(responseLists);
-
-      const original = responseLists.filter(i => i.slug === "originals");
-      const movieChosen = original[0].items.results[Math.floor(Math.random() * (original[0].items.results.length - 1))]
-      const responseInfo = await Tmdb.getMovieInfo(movieChosen.id,"tv");
-      setFeaturedData(responseInfo);
-      console.log(responseInfo)
-
-    }
     loadAll();
-  },[])
+  },[]);
+
   useEffect(()=>{
     const scrollListener = () =>{
       if(window.scrollY > 150){
@@ -56,11 +75,13 @@ export const App: React.FC = () =>{
     return () =>{
       window.removeEventListener("scroll",scrollListener);
     }
-  },[])
+  },[]);
 
   return (
-    <div className="page">
-      <Header black={blackHeader}/>
+    <>
+    {animationState.isStopped ? (
+      <div className="page" >
+      <Header black={blackHeader} />
       {featuredData!== undefined && <FeaturedMovie item={featuredData}/> }
       <div className="lists">
         {movieList?.map((item,key) =>(
@@ -72,6 +93,16 @@ export const App: React.FC = () =>{
          <span>Direitos de imagem <a href="https://netflix.com">Netflix©</a></span>
          <span>Dados por <a href="https://www.themoviedb.org/?language=pt-BR">TMDB©</a></span>
         </footer>
-    </div>
+        </div>
+    ):(
+      <div className="loading-animation">
+   <Lottie  options={lootieDefaultOptions}
+      height={700}
+      width={700}
+      isStopped={animationState.isStopped}
+      isPaused={animationState.isPaused}/>
+      </div>
+    )}
+    </>
   )
 }

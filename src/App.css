@@ -8,6 +8,8 @@ body{
   color:#fff;
   margin:0;
   font-family: 'Roboto', sans-serif;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 .lists{
   margin-top: -150px;
@@ -21,4 +23,21 @@ footer{
 footer a {
   text-decoration: none;
   color:#808080;
+}
+@keyframes animation {
+  from {opacity:  0;}
+  to {opacity:  1;}
+}
+.page{
+  animation:animation 2.5s ease forwards;
+}
+@media (max-width:760px){
+  .loading-animation{
+    margin-left: -50%;
+    width:760px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    transform:scale(0.5);
+}
 }

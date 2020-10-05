@@ -63,6 +63,10 @@ export const FeaturedSeasons = styled.div`
     font-size:20px;
     color:#999;
     max-width:35%;
+    @media (max-width:760px){
+      max-width:65%;
+      width:100%;
+    }
   `;
   export const FeaturedButtons = styled.div`
     margin: 15px 0;

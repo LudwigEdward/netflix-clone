@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({black}) => {
           </a>
         </HeaderLogo>
         <HeaderUser>
-        <a href="" >
+        <a href="/" >
             <img src="https://occ-0-642-3852.1.nflxso.net/dnm/api/v6/Z-WHgqd_TeJxSuha8aZ5WpyLcX8/AAAABa3biOZIj5B3s2D9LMSrIdIHBKMTwpQdNEGch2Tl4N76my7eMfE5zrcdFNIdEwiUGmfx6BUMJf15FoW7Zl042lMfbHSG.png?r=f08" alt="Netflix User Profile Icon"/>
           </a>
         </HeaderUser>
